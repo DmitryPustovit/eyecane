@@ -41,8 +41,8 @@ var constraints = {
       audio: false,
       video: {
         optional: [
-            { souceId: envSource ? envSource.id : null }//,
-           // { maxFrameRate: 6 }
+            { sourceId: envSource ? envSource.id : null },
+            { maxFrameRate: 6 }
         ]
       }
    };
