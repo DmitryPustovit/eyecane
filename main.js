@@ -1,3 +1,5 @@
+'use strict';
+
 var lastImage;
 var lastTopColor = [0, 0, 0]
 var currImage;
@@ -77,7 +79,7 @@ var processFrame = function() {
     ctx.drawImage(video, 0, 0);
     currImage = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     var curTopColor = [0,0,0]
-    count = 0;
+    var count = 0;
     for(var i = 0; i < currImage.length / 2; i += 4*6) {
         curTopColor[0] = curTopColor[0] + currImage[i];
         curTopColor[1] = curTopColor[1] + currImage[i+1];
