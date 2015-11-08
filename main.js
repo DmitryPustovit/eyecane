@@ -108,7 +108,7 @@ var identifyView = function() {
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
-    var serverUrl = "https://api.parse.com/1/files/still.jpeg"
+    var serverUrl = "https://api.parse.com/1/files/" + Date.now() + ".jpeg";
     var imgData = canvas.toDataURL("image/jpg");
     imgData = imgData.replace(/^data:image\/(png|jpg);base64,/, "");
     var uintArray = Base64Binary.decode(imgData);
@@ -125,13 +125,37 @@ var identifyView = function() {
         processData: false,
         contentType: false,
         success: function(data) {
-          alert("File available at: " + data.url);
+            Parse.initialize("do4XQsYf6GsndqzxJdVfBGf4llzuqKCTunmusCYc", "E0l2orcYt8m82Wz4HotzyO48W16lWuMqvKx9Vnx1");
+            var outputMessage;
+            Parse.Cloud.run('hello', {url: data.url}, {
+                success: function(outputMessage) {
+                    window.alert(outputMessage);
+                },
+                error: function(error) {
+                    
+                }
+            });
         },
         error: function(data) {
           var obj = jQuery.parseJSON(data);
         }
       });
+}
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    $.ajax({
 //        url: "http://gateway-a.watsonplatform.net/calls/image/ImageGetRankedImageKeywords",
 //        jsonp: "callback",
@@ -144,4 +168,3 @@ var identifyView = function() {
 //        },
 //        success: processViewID
 //    });
-} 
