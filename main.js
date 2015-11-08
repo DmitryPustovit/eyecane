@@ -54,7 +54,7 @@ navigator.webkitGetUserMedia(constraints,
     video.src = url;
     video.play();
     canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d
+    ctx = canvas.getContext('2d');
     video.addEventListener('timeupdate', processFrame);
     video.addEventListener('click', identifyView);
   },
