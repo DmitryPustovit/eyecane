@@ -3,13 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+      <meta name="mobile-web-app-capable" content="yes">
+      <base target="_blank">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Eye-Cane</title>
     <link href="main.css" rel="stylesheet">
   </head>
   <body style="margin:0;padding:0;">
-    <video id="video" autoplay></video>
+    <video id="video" muted autoplay></video>
     <canvas id="canvas"></canvas>
       <audio id="beep" src="beep-06.mp3" hidden> </audio>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
