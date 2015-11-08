@@ -28,7 +28,7 @@ if (!createObjectURL) {
 
 var envSource;
 MediaStreamTrack.getSources(function(sourceInfos) {
-var envSource = sourceInfos.filter(function(sourceInfo) {
+envSource = sourceInfos.filter(function(sourceInfo) {
     return sourceInfo.kind == "video"
         && sourceInfo.facing == "environment";
   }).reduce(function(a, source) {
@@ -68,12 +68,12 @@ var difference = function(c1, c2) {
 var processFrame = function() {
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
-    
+
 //    if(lastImage == null) {
 //        ctx.drawImage(video, 0, 0);
 //        lastImage = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 //    } else {
-    
+
     ctx.drawImage(video, 0, 0);
     currImage = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     var curTopColor = [0,0,0]
@@ -87,9 +87,9 @@ var processFrame = function() {
     curTopColor[0] = ~~ (curTopColor[0] / count);
     curTopColor[1] = ~~ (curTopColor[1] / count);
     curTopColor[2] = ~~ (curTopColor[2] / count);
-    
+
     console.log(difference(curTopColor, lastTopColor));
-    
+
     if(difference(curTopColor, lastTopColor) > THRESHOLD) {
         document.getElementById('beep').currentTime = 0;
         document.getElementById('beep').play();
@@ -107,7 +107,7 @@ var identifyView = function() {
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
     $.ajax({
-        url: "http://gateway-a.watsonplatform.net/calls/image/ImageGetRankedImageKeywords", 
+        url: "http://gateway-a.watsonplatform.net/calls/image/ImageGetRankedImageKeywords",
         jsonp: "callback",
         dataType: "jsonp",
         data: {
