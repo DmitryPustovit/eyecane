@@ -135,7 +135,8 @@ var identifyView = function() {
                     $("#words").attr("src",url).get(0).play();
                 },
                 error: function(error) {
-                    
+                    window.err = error;
+                    alert(error.toString());
                 }
             });
         },
