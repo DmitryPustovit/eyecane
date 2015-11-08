@@ -129,7 +129,10 @@ var identifyView = function() {
             var outputMessage;
             Parse.Cloud.run('hello', {url: data.url}, {
                 success: function(outputMessage) {
-                    window.alert(outputMessage);
+                    var text = encodeURIComponent(outputMessage.toString());
+                    var url = 'http://translate.google.com/translate_tts?ie=UTF-8&q=' + text + '&tl=en-us';
+
+                    $("#words").attr("src",url).get(0).play();
                 },
                 error: function(error) {
                     
@@ -168,3 +171,17 @@ var identifyView = function() {
 //        },
 //        success: processViewID
 //    });
+//$.ajax({
+//                        method: "POST",
+//                        url: "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize",
+//                        username: "9207e81c-1463-4b40-a4cc-4b9eb966d173",
+//                        password: "J87wpS2Bm8qu",
+//                        
+//                        accepts: "audio/wav",
+//                        contentType: "json",
+//                        data: {"text": outputMessage.toString()},
+//                        success: function (data) {
+//                            var audio = new Audio(data);
+//                            audio.play();
+//                        }
+//                    });
