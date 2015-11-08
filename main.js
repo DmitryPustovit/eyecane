@@ -6,7 +6,7 @@ var currImage;
 var canvas;
 var ctx;
 var jpg;
-var THRESHOLD = 30;
+var THRESHOLD = 35;
 
 var getUserMedia = function(t, onsuccess, onerror) {
   if (navigator.getUserMedia) {
@@ -122,12 +122,12 @@ var identifyView = function() {
         beforeSend: function(request) {
           request.setRequestHeader("X-Parse-Application-Id", 'do4XQsYf6GsndqzxJdVfBGf4llzuqKCTunmusCYc');
           request.setRequestHeader("X-Parse-REST-API-Key", 'h5NVG3b3b8PENEC8uObXaRtUMH3rH6RyZLetrzcW');
-          request.setRequestHeader("Content-Type", "text/plain");
+          request.setRequestHeader("Content-Type", "image/jpg");
         },
         url: serverUrl,
         base64: imgData,
         processData: false,
-        contentType: "image/jpg",
+        contentType: false,
         success: function(data) {
           alert("File available at: " + data.url);
           console.log(data.url);
