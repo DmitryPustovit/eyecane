@@ -34,7 +34,6 @@ var envSource = sourceInfos.filter(function(sourceInfo) {
   }).reduce(function(a, source) {
     return source;
   }, null);
-});
 
 var constraints = {
       audio: false,
@@ -45,6 +44,22 @@ var constraints = {
         ]
       }
    }
+
+getUserMedia(constraints,
+  function(stream) {
+    var url = createObjectURL(stream);
+    video.src = url;
+    canvas = document.createElement('canvas');
+    ctx = canvas.getContext('2d');
+    video.addEventListener('timeupdate', processFrame);
+    video.addEventListener('click', identifyView);
+  },
+  function(error) {
+    alert("Couldn't access webcam.");
+  }
+);
+
+});
 
 var difference = function(c1, c2) {
     return Math.sqrt(Math.pow(c1[0]-c2[0], 2) + Math.pow(c1[1]-c2[1], 2) + Math.pow(c1[2]-c2[2], 2))
@@ -104,17 +119,3 @@ var identifyView = function() {
         success: processViewID
     });
 } 
-
-getUserMedia(constraints,
-  function(stream) {
-    var url = createObjectURL(stream);
-    video.src = url;
-    canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d');
-    video.addEventListener('timeupdate', processFrame);
-    video.addEventListener('click', identifyView);
-  },
-  function(error) {
-    alert("Couldn't access webcam.");
-  }
-);
