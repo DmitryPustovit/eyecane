@@ -28,9 +28,9 @@ if (!createObjectURL) {
   throw new Error("URL.createObjectURL not found.");
 }
 
-var envSource;
+
 MediaStreamTrack.getSources(function(sourceInfos) {
-envSource = sourceInfos.filter(function(sourceInfo) {
+var envSource = sourceInfos.filter(function(sourceInfo) {
     return sourceInfo.kind == "video"
         && sourceInfo.facing == "environment";
   }).reduce(function(a, source) {
@@ -47,7 +47,7 @@ var constraints = {
       }
    }
 
-getUserMedia(constraints,
+navigator.webkitGetUserMedia(constraints,
   function(stream) {
     var url = createObjectURL(stream);
     video.src = url;
