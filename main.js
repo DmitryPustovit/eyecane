@@ -73,11 +73,6 @@ var processFrame = function() {
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
 
-//    if(lastImage == null) {
-//        ctx.drawImage(video, 0, 0);
-//        lastImage = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-//    } else {
-
     ctx.drawImage(video, 0, 0);
     currImage = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     var curTopColor = [0,0,0];
@@ -116,25 +111,24 @@ var identifyView = function() {
     var serverUrl = "https://api.parse.com/1/files/still.jpeg"
     var imgData = canvas.toDataURL("image/jpg");
     imgData = imgData.replace(/^data:image\/(png|jpg);base64,/, "");
-    console.log(imgData);
+    var uintArray = Base64Binary.decode(imgData);
+    var byteArray = Base64Binary.decodeArrayBuffer(imgData); 
     $.ajax({
         type: "POST",
         beforeSend: function(request) {
           request.setRequestHeader("X-Parse-Application-Id", 'do4XQsYf6GsndqzxJdVfBGf4llzuqKCTunmusCYc');
           request.setRequestHeader("X-Parse-REST-API-Key", 'h5NVG3b3b8PENEC8uObXaRtUMH3rH6RyZLetrzcW');
-          request.setRequestHeader("Content-Type", "image/jpg");
+          request.setRequestHeader("Content-Type", "image/jpeg");
         },
         url: serverUrl,
-        base64: imgData,
+        data: byteArray,
         processData: false,
         contentType: false,
         success: function(data) {
           alert("File available at: " + data.url);
-          console.log(data.url);
         },
         error: function(data) {
           var obj = jQuery.parseJSON(data);
-          alert(obj.error);
         }
       });
     
