@@ -103,6 +103,7 @@ var processViewID = function(data) {
 }
 
 var identifyView = function() {
+    document.getElementById('beep').load();
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
