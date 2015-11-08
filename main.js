@@ -6,7 +6,7 @@ var currImage;
 var canvas;
 var ctx;
 var jpg;
-var THRESHOLD = 35;
+var THRESHOLD = 40;
 
 var getUserMedia = function(t, onsuccess, onerror) {
   if (navigator.getUserMedia) {
