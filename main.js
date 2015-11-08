@@ -129,10 +129,7 @@ var identifyView = function() {
             var outputMessage;
             Parse.Cloud.run('hello', {url: data.url}, {
                 success: function(outputMessage) {
-                    var text = encodeURIComponent(outputMessage.toString());
-                    var url = 'http://translate.google.com/translate_tts?ie=UTF-8&q=' + text + '&tl=en-us';
-
-                    $("#words").attr("src",url).get(0).play();
+                    responsiveVoice.speak(outputMessage.toString());
                 },
                 error: function(error) {
                     window.err = error;
