@@ -6,7 +6,7 @@ var currImage;
 var canvas;
 var ctx;
 var jpg;
-var THRESHOLD = 20;
+var THRESHOLD = 30;
 
 var getUserMedia = function(t, onsuccess, onerror) {
   if (navigator.getUserMedia) {
@@ -92,7 +92,7 @@ var processFrame = function() {
     curTopColor[1] = ~~ (curTopColor[1] / count);
     curTopColor[2] = ~~ (curTopColor[2] / count);
 
-    console.log(difference(curTopColor, lastTopColor));
+    //console.log(difference(curTopColor, lastTopColor));
 
     if(difference(curTopColor, lastTopColor) > THRESHOLD) {
         document.getElementById('beep').currentTime = 0;
@@ -113,16 +113,41 @@ var identifyView = function() {
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
+    var serverUrl = "https://api.parse.com/1/files/still.jpeg"
+    var imgData = canvas.toDataURL("image/jpg");
+    imgData = imgData.replace(/^data:image\/(png|jpg);base64,/, "");
+    console.log(imgData);
     $.ajax({
-        url: "http://gateway-a.watsonplatform.net/calls/image/ImageGetRankedImageKeywords",
-        jsonp: "callback",
-        dataType: "jsonp",
-        data: {
-            apikey: "8fa2a912f8aac33cdb33258ea15de3c793b3f377",
-            image: canvas.toDataURL(),
-            imagePostMode: "raw",
-            outputMode: "json",
+        type: "POST",
+        beforeSend: function(request) {
+          request.setRequestHeader("X-Parse-Application-Id", 'do4XQsYf6GsndqzxJdVfBGf4llzuqKCTunmusCYc');
+          request.setRequestHeader("X-Parse-REST-API-Key", 'h5NVG3b3b8PENEC8uObXaRtUMH3rH6RyZLetrzcW');
+          request.setRequestHeader("Content-Type", "text/plain");
         },
-        success: processViewID
-    });
+        url: serverUrl,
+        base64: imgData,
+        processData: false,
+        contentType: "image/jpg",
+        success: function(data) {
+          alert("File available at: " + data.url);
+          console.log(data.url);
+        },
+        error: function(data) {
+          var obj = jQuery.parseJSON(data);
+          alert(obj.error);
+        }
+      });
+    
+//    $.ajax({
+//        url: "http://gateway-a.watsonplatform.net/calls/image/ImageGetRankedImageKeywords",
+//        jsonp: "callback",
+//        dataType: "jsonp",
+//        data: {
+//            apikey: "8fa2a912f8aac33cdb33258ea15de3c793b3f377",
+//            image: canvas.toDataURL(),
+//            imagePostMode: "raw",
+//            outputMode: "json",
+//        },
+//        success: processViewID
+//    });
 } 
