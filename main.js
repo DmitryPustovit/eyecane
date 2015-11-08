@@ -129,7 +129,11 @@ var identifyView = function() {
             var outputMessage;
             Parse.Cloud.run('hello', {url: data.url}, {
                 success: function(outputMessage) {
-                    responsiveVoice.speak(outputMessage.toString());
+                    var str = outputMessage.toString();
+                    if(str.length < 3) {
+                        str = "Unknown Object"
+                    }
+                    responsiveVoice.speak(str);
                 },
                 error: function(error) {
                     window.err = error;
