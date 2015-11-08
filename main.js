@@ -41,8 +41,8 @@ var constraints = {
       audio: false,
       video: {
         optional: [
-            { souceId: envSource ? envSource.id : null },
-            { maxFrameRate: 6 }
+            { souceId: envSource ? envSource.id : null }//,
+           // { maxFrameRate: 6 }
         ]
       }
    };
@@ -54,7 +54,7 @@ navigator.webkitGetUserMedia(constraints,
     video.src = url;
     video.play();
     canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d
     video.addEventListener('timeupdate', processFrame);
     video.addEventListener('click', identifyView);
   },
@@ -101,6 +101,8 @@ var processFrame = function() {
         lastTopColor = curTopColor;
     }
 };
+
+function autosize() {}
 
 var processViewID = function(data) {
     console.log(data);
